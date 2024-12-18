@@ -15,6 +15,7 @@ let eight=document.getElementById("8")
 let nine=document.getElementById("9")
 let equal=document.getElementById("=")
 let screen=document.getElementById("screen")
+let screen1=document.getElementById("screen1")
 let del=document.getElementById("del")
 let rest=document.getElementById("rest")
 let pre=document.getElementById("prefix")
@@ -26,27 +27,27 @@ let is_prefix=false
 //************************* */
 let L1=[]
 let s=[]
-let q=[]
+
 
  
 //*****functions******* */
 function screen_click(){
-    screen.textContent=L1.join(" ")
+    screen.textContent="input:"+L1.join(" ")
 }
 function appear_screan(a)
 {
-    
 L1.push(a)
-screen.textContent =L1.join(" ")
+screen.textContent ="input:"+L1.join(" ")
     
 }
-function appear(value){
-    screen.textContent=value+" "
+function appear_answer(value){
+    screen1.textContent="output:"+value
 }
 
 
 function rest_click(){
-    screen.textContent=""
+    screen.textContent="input:"
+    screen1.textContent="output:"
     post.style.backgroundColor="black"
     pre.style.backgroundColor="black"
     is_postfix=false
@@ -56,7 +57,7 @@ function rest_click(){
 }
 function dele(){
     L1.pop()
-   screen.textContent= L1.join(" ")
+   screen.textContent="input:"+ L1.join(" ")
     
 
 
@@ -78,7 +79,7 @@ function postfix_click(){
 function prefix(l){
     if(!isNaN(l[0])){
         alert("definitly a mistake")    
-       return L1.join(" ")
+       return ""
     }
 
     s=[]
@@ -87,7 +88,7 @@ function prefix(l){
         {if (s.length<2){
             alert("insufficient numbers ")
             
-            return L1.join(" ")
+            return""
         }
         let v1=parseInt(s.pop());
         let v2=parseInt(s.pop());
@@ -101,7 +102,7 @@ function prefix(l){
         else if(L1[i]=="/"){
             if (v2==0){
                 alert("division by zero for opperation at index"+i)
-                return L1.join(" ")
+                return ""
                 
               
             }
@@ -115,10 +116,10 @@ function prefix(l){
     
     if (s.length !== 1) {
        alert("not balance ")
-       return L1.join("")
+       return ""
     }
     
-    L1=[]
+    
     return s.pop()
 
 }
@@ -128,7 +129,7 @@ for(let i=0;i<L1.length;i++){
     if(L1[i]=="+"|| L1[i]=="-"||L1[i]=="*"||L1[i]=="/")
     {   if (s.length<2){
             alert("insufficient numbers")  
-            return  L1.join(" ")
+            return  ""
         }
         let v2=parseInt(s.pop())
         let v1=parseInt(s.pop())
@@ -142,7 +143,7 @@ for(let i=0;i<L1.length;i++){
         else if (L1[i]=="/"){
             if(v2==0){
                 alert("divide by zero by operation of index "+i+"you can add and del")
-                return L1.join(" ")
+                return ""
             }
             result=v1/v2
         }
@@ -155,9 +156,9 @@ for(let i=0;i<L1.length;i++){
 }
     if (s.length !== 1) {
         alert(" not balance you can add and del ")
-        return L1.join(" ")
+        return ""
     }
-    L1=[]
+    
     return s.pop() 
     
 
@@ -169,14 +170,14 @@ function equal_click(){
     else if (is_postfix){
         
         t=postfix(L1)
-        appear(t)
+        appear_answer(t)
 
         
     }
     else if(is_prefix){
         
         t=prefix(L1)
-       appear(t)
+       appear_answer(t)
 
     }
     else{
