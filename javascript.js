@@ -29,14 +29,24 @@ let q=[]
 
  
 //*****functions******* */
-function appear_screan(a){
-    
+function screen_click(){
+    screen.textContent=L1.join(" ")
+}
+function appear_screan(a,b=null)
+{
+if(b===null)  {
 L1.push(a)
 screen.textContent +=a+"  "
-    
+    }
+    else{
 
-
+    }
 }
+function appear(value){
+    screen.textContent=value
+}
+
+
 function rest_click(){
     screen.textContent=""
     post.style.backgroundColor="black"
@@ -58,6 +68,7 @@ function prefix_click(){
     is_postfix=false
     pre.style.backgroundColor="green"
     post.style.backgroundColor="black"
+    
 }
 function postfix_click(){
     is_postfix=true
@@ -67,16 +78,83 @@ function postfix_click(){
     
 }
 function prefix(l){
+    s=[]
     for(let i=L1.length-1;i>=0;i--){
-        if(s[i]=="+")
-    }         
+        if(L1[i]=="+" ||L1[i]=="-" || L1[i]=="*"||L1[i]=="/")
+        {if (s.length<2)
+            return " errorr"
+        let v1=parseInt(s.pop());
+        let v2=parseInt(s.pop());
+        let result
+        if (L1[i]=="+")
+            result=v2+v1
+        else if(L1[i]=="-")
+            result=v1-v2
+        else if(L1[i]=="*")
+            result=v1*v2
+        else if(L1[i]=="/"){
+            if (v2==0)
+                return "error"
+            result=v1/v2
+        }
+        s.push(result)
+        }
+        else
+            s.push(L1[i])
+    if (s.length !==1) 
+       return "error"      
+    return s.pop()
 
-}
+}}
 function postfix(l){
-
+s=[]
+for(let i=0;i<L1.length;i++){
+    if(L1[i]=="+"|| L1[i]=="-"||L1[i]=="*"||L1[i]=="/")
+    {   if (s.length<2)
+            return " errorr"
+        let v2=parseInt(s.pop())
+        let v1=parseInt(s.pop())
+        let result
+        if (L1[i]=="+")
+            result=v1+v2
+        else if (L1[i]=="-")
+            result=v1-v2
+        else if (L1[i]=="*")
+            result=v1*v2
+        else if (L1[i]=="/"){
+            if(v2==0)
+                return "error"
+            result=v1/v2
+        }
+           
+        s.push(result)
+    }
+    else{
+        s.push(L1[i])
+    }
 }
+    if (s.length !== 1) 
+        return "error"
 
+    return s.pop() 
 
+}   
+function equal_click(){
+    if (is_postfix){
+        t=postfix(L1)
+        appear(t)
+        
+    }
+    else if(is_prefix){
+        t=prefix(L1)
+       appear(t)
+
+    }
+    else{
+        alert(" press on pre and post")
+
+    }
+}
 
 
 
@@ -123,3 +201,5 @@ del.addEventListener("click",dele)
 post.addEventListener("click",postfix_click)
 pre.addEventListener("click",prefix_click)
 rest.addEventListener("click",rest_click)
+equal.addEventListener("click",equal_click)
+screen.addEventListener("click",screen_click)

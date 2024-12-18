@@ -50,3 +50,9 @@ padding: auto;
 .op:hover{
     background-color: rgb(88, 88, 213);
 }
+.op1:hover{
+    background-color:aqua ;
+}
+.op2:hover{
+    background-color: yellow;
+}
