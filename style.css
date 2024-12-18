@@ -1,0 +1,52 @@
+.big_container{
+    border: 3px solid black;
+    width: 60%;
+    height: 100%;
+    margin: auto;
+    background-color: gray;
+   
+}
+.screen{
+background-color: white;
+min-height: 30px ;
+height: 60%;
+width: 80%;
+border: 3px solid black;
+border-radius: 20px;
+margin: auto;
+text-align: center;
+word-wrap: break-word; 
+font-size: larger;
+
+
+}
+.presses{
+margin-top:7% ;
+display: flex;
+flex-wrap:wrap ;
+justify-content: center;
+
+}
+.press{
+    color: white;
+background-color: black;
+width: 15%;
+height: 60px;
+border: 3px solid white;
+margin:3% ;
+font-size:100% ;
+padding: auto;
+
+}
+.equal{
+    width:37% ;
+    
+    margin: 3%;
+   color: white;
+    background-color: black;
+    text-align: center;
+    font-size:  100% ;
+}
+.op:hover{
+    background-color: rgb(88, 88, 213);
+}
