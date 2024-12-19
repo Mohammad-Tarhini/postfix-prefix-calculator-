@@ -4,7 +4,7 @@ let is_postfix=false
 let is_prefix=false
 //***arrays */
 let L1=[]
-let s=[]
+let L2=[]
 //******dictionarys*******/
 const cont={plus:'+',minus:"-",times:"*",divide:"/",zero:"0",one:"1",two:"2",three:"3",four:"4",five:"5",six:"6",seven:"7",eight:"8",nine:"9"}
 const pcelements={}
@@ -18,7 +18,8 @@ const light=document.getElementById("light")
 const normal=document.getElementById("normal")
 const big_container=document.getElementById("big_container")
 const equal=document.getElementById("=")
-const screen_input=document.getElementById("screen")
+const screen_input_prefix=document.getElementById("screen_prefix_input")
+const screen_input_postfix=document.getElementById("screen_postfix_input")
 const screen_output=document.getElementById("screen1")
 const del=document.getElementById("del")
 const rest=document.getElementById("rest")
@@ -26,9 +27,22 @@ const pre=document.getElementById("prefix")
 const post=document.getElementById("postfix")
 //*****functions******* */
 function add_to_screan(a)
-{
-    L1.push(a)
-    screen_input.textContent ="input: "+L1.join(" ")   
+{ if(is_prefix)
+    {
+      L1.push(a)
+      screen_input_prefix.textContent =L1.join(" ")  
+    } 
+  else if(is_postfix)
+  {
+    L2.push(a)
+    screen_input_postfix.textContent=L2.join(" ")
+  }
+  else
+  {
+    alert("press on post or pre")
+
+  }
+
 }
 function appear_answer(value)
 {
@@ -36,32 +50,81 @@ function appear_answer(value)
 }
 function rest_click()
 {
-    screen_input.textContent="input:"
+    screen_input_prefix.textContent="prefix_input:"
+    screen_input_prefix.style.backgroundColor="white"
+    screen_input_postfix.textContent="postfix_input:"
+    screen_input_postfix.style.backgroundColor="white"
     screen_output.textContent="output:"
     post.style.backgroundColor="black"
     pre.style.backgroundColor="black"
     is_postfix=false
     is_prefix=false
     L1=[]
+    L2=[]
 }
 function dele()
-{
-    L1.pop()
-    screen_input.textContent="input:"+ L1.join(" ")
+{ if(is_prefix)
+    {
+      L1.pop()
+      if(L1.length==0)
+      {
+        screen_input_prefix.textContent="enter:"
+      }
+      else
+      {
+        screen_input_prefix.textContent= L1.join(" ")
+      }
+    }
+  else if(is_postfix)
+    {
+        L2.pop()
+        if(L2.length==0)
+            {
+                screen_input_postfix.textContent="enter:"
+            }
+        screen_input_postfix.textContent=L2.join(" ")
+    }
+
 }
 function prefix_click()
 {
+    if(is_prefix)
+    {
+
+    }
+    else
+    {
     is_prefix=true
     is_postfix=false
     pre.style.backgroundColor="green"
     post.style.backgroundColor="black"
+    screen_input_prefix.style.backgroundColor="green"
+    screen_input_postfix.style.backgroundColor="white"
+    screen_input_prefix.textContent="enter:"
+    screen_input_postfix.textContent="postfix_input:"
+    screen_output.textContent="output:"
+    L2=[]
+    }
 }
 function postfix_click()
 {
+    if(is_postfix)
+    {
+
+    }
+    else
+    {
     is_postfix=true
     is_prefix=false
     post.style.backgroundColor="green"
     pre.style.backgroundColor="black"
+    screen_input_prefix.style.backgroundColor="white"
+    screen_input_postfix.style.backgroundColor="green"
+    screen_input_postfix.textContent="enter:"
+    screen_input_prefix.textContent="prefix_input:"
+    screen_output.textContent="output:"
+    L1=[]
+    }
 }
 function prefix(l)
 {
@@ -72,9 +135,9 @@ function prefix(l)
     }
 
     s=[]
-    for(let i=L1.length-1;i>=0;i--)
+    for(let i=l.length-1;i>=0;i--)
     {
-        if(L1[i]=="+" ||L1[i]=="-" || L1[i]=="*"||L1[i]=="/")
+        if(l[i]=="+" ||l[i]=="-" || l[i]=="*"||l[i]=="/")
         {
             if (s.length<2)
             {
@@ -84,13 +147,13 @@ function prefix(l)
            let v1=parseInt(s.pop());
            let v2=parseInt(s.pop());
            let result
-           if (L1[i]=="+")
+           if (l[i]=="+")
               result=v2+v1
-           else if(L1[i]=="-")
+           else if(l[i]=="-")
               result=v1-v2
-           else if(L1[i]=="*")
+           else if(l[i]=="*")
               result=v1*v2
-           else if(L1[i]=="/")
+           else if(l[i]=="/")
            {
             if (v2==0)
             {
@@ -102,7 +165,7 @@ function prefix(l)
            s.push(result)
         }
         else
-            s.push(L1[i])
+            s.push(l[i])
     }
     
     if (s.length !== 1) 
@@ -120,9 +183,9 @@ function postfix(l)
         return ""
     }
   s=[]
-  for(let i=0;i<L1.length;i++)
+  for(let i=0;i<l.length;i++)
    {
-    if(L1[i]=="+"|| L1[i]=="-"||L1[i]=="*"||L1[i]=="/")
+    if(l[i]=="+"|| l[i]=="-"|| l[i]=="*"||l[i]=="/")
     {   if (s.length<2)
         {
             alert("insufficient numbers before operatin of index"+i )  
@@ -131,13 +194,13 @@ function postfix(l)
         let v2=parseInt(s.pop())
         let v1=parseInt(s.pop())
         let result
-        if (L1[i]=="+")
+        if (l[i]=="+")
             result=v1+v2
-        else if (L1[i]=="-")
+        else if (l[i]=="-")
             result=v1-v2
-        else if (L1[i]=="*")
+        else if (l[i]=="*")
             result=v1*v2
-        else if (L1[i]=="/")
+        else if (l[i]=="/")
         {
             if(v2==0)
             {
@@ -150,7 +213,7 @@ function postfix(l)
         s.push(result)
     }
     else
-        s.push(L1[i])
+        s.push(l[i])
         
    }
     if (s.length !== 1) 
@@ -158,24 +221,31 @@ function postfix(l)
         alert(" not balance you can add and del ")
         return ""
     }
-    
     return s.pop() 
-    
-
 }   
 function equal_click()
 {
-    if(L1.length===0)
-        alert("please enter numbers")
-    else if (is_postfix)
+    if( is_prefix)
     {
-        t=postfix(L1)
-        appear_answer(t)
+        if(L1.length===0)
+            alert("please enter numbers")
+        else
+        {
+            t=prefix(L1)
+            appear_answer(t)
+        }
+        
     }
-    else if(is_prefix)
-    {    
-        t=prefix(L1)
-       appear_answer(t)
+    else if(is_postfix)
+    {
+        if(L2.length==0)
+            alert("please enter numbers")
+        else
+        {
+            t=postfix(L2)
+            appear_answer(t)
+        }
+       
     }
     else
         alert(" press on pre and post")
@@ -191,6 +261,8 @@ for (const key in pcelements)
 del.addEventListener("click",dele)
 post.addEventListener("click",postfix_click)
 pre.addEventListener("click",prefix_click)
+screen_input_postfix.addEventListener("click",postfix_click)
+screen_input_prefix.addEventListener("click",prefix_click)
 rest.addEventListener("click",rest_click)
 equal.addEventListener("click",equal_click)
 dark.addEventListener("click",

@@ -4,8 +4,8 @@ h2{
 }
 .p1{
     position: absolute;
-    right: 5%;
-    top: 100px;
+   left: 35%;
+    top: 90px;
     font-size: 20px;
     
 }
@@ -24,6 +24,10 @@ margin-bottom: 20px;
     
     background-color: rgb(118, 98, 98);
    
+}
+.input_screen{
+    display: flex;
+    
 }
 .screen{
 background-color: white;
@@ -74,12 +78,13 @@ padding: auto;
 }
 .equal{
     width:37% ;
-    
+    height: 50px;
     margin: 3%;
    color: white;
     background-color: black;
     text-align: center;
     font-size:  100% ;
+    border: 2px solid blanchedalmond;
 }
 .op:hover{
     background-color: rgb(88, 88, 213);
