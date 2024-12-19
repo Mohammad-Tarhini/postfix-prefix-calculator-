@@ -1,13 +1,28 @@
 h2{
-    text-align: center;
+    
     font-size: 40px;
 }
+.p1{
+    position: absolute;
+    right: 5%;
+    top: 100px;
+    font-size: 20px;
+    
+}
+
+.dl{
+width: 10%;
+height: 30px;
+margin-bottom: 20px;
+}
+
+
 .big_container{
-    border: 3px solid black;
+    border: 3px solid rgb(11, 8, 8);
     width: 60%;
     height: 100%;
-    margin: auto;
-    background-color: gray;
+    
+    background-color: rgb(118, 98, 98);
    
 }
 .screen{
