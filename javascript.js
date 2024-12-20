@@ -32,6 +32,7 @@ function add_to_screan(a)
     {
       L1.push(a)
       screen_input_prefix.textContent =L1.join(" ")
+      screen_output.textContent=""
       step.textContent=" entering success ....." 
     } 
   else if(is_postfix)
@@ -39,6 +40,7 @@ function add_to_screan(a)
     L2.push(a)
     screen_input_postfix.textContent=L2.join(" ")
     step.textContent="entering success ....." 
+    screen_output.textContent=""
   }
   else
   {
@@ -49,7 +51,7 @@ function add_to_screan(a)
 }
 function appear_answer(value)
 {
-    screen_output.textContent="output:"+value
+    screen_output.textContent=value
 }
 function rest_click()
 {
@@ -71,10 +73,12 @@ function dele()
 { if(is_prefix)
     {
       L1.pop()
+      screen_output.textContent=""
       if(L1.length==0)
       {
         screen_input_prefix.textContent="enter:"
         step.textContent="enter number or operation"
+        
       }
       else
       {
@@ -85,6 +89,8 @@ function dele()
   else if(is_postfix)
     {
         L2.pop()
+        screen_output.textContent=""
+
         if(L2.length==0)
         {
             step.textContent="enter number or operation"
@@ -115,7 +121,7 @@ function prefix_click()
     screen_input_prefix.textContent="enter:"
     screen_input_postfix.textContent="postfix_input:"
     screen_output.textContent="output:"
-    step.textContent="please enter  number or operation"
+    step.textContent="please enter  number or operator"
     L2=[]
     }
 }
@@ -136,7 +142,7 @@ function postfix_click()
     screen_input_postfix.textContent="enter:"
     screen_input_prefix.textContent="prefix_input:"
     screen_output.textContent="output:"
-     step.textContent="please enter  number or operation"
+     step.textContent="please enter  number or operator"
     L1=[]
     }
 }
@@ -145,7 +151,7 @@ function prefix(l)
     if(!isNaN(l[0]))
     {
         step.textContent="fix the error" 
-        alert("definitly a mistake")    
+        alert("definitly wrong , operator should be before numbers")    
          return ""
     }
 
@@ -174,7 +180,7 @@ function prefix(l)
             if (v2==0)
             {
                step.textContent="fix the error"
-               alert("division by zero for opperation at index"+i)
+               alert("divisor is zero on operator at index"+i)
                return ""
             }
             result=v1/v2
@@ -208,7 +214,7 @@ function postfix(l)
     {   if (s.length<2)
         {
             step.textContent="fix the error"
-            alert("insufficient numbers before operatin of index"+i )  
+            alert("insufficient numbers before operator at index"+i )  
             return  ""
         }
         let v2=parseInt(s.pop())
@@ -225,7 +231,7 @@ function postfix(l)
             if(v2==0)
             {
                 step.textContent="fix the error"
-                alert("divide by zero by operation of index "+i+"you can add and del")
+                alert("divisor is zero on operator of index "+i)
                 return ""
             }
             result=v1/v2
@@ -240,7 +246,7 @@ function postfix(l)
     if (s.length !== 1) 
     {
         step.textContent="fix the error"
-        alert(" not balance you can add and del ")
+        alert(" not balance  ")
         return ""
     }
     return s.pop() 
@@ -250,10 +256,10 @@ function equal_click()
     if( is_prefix)
     {
         if(L1.length===0)
-            alert("please enter numbers")
+            alert("please enter numbers or operator")
         else
         {
-            step.textContent="calculate....."
+            step.textContent="calculated....."
             t=prefix(L1)
             appear_answer(t)
            
@@ -264,10 +270,10 @@ function equal_click()
     else if(is_postfix)
     {
         if(L2.length==0)
-            alert("please enter numbers")
+            alert("please enter numbers or operator")
         else
         {
-            step.textContent="calculate....."
+            step.textContent="calculated....."
             t=postfix(L2)
             appear_answer(t)
             
