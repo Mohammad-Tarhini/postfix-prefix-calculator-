@@ -25,21 +25,24 @@ const del=document.getElementById("del")
 const rest=document.getElementById("rest")
 const pre=document.getElementById("prefix")
 const post=document.getElementById("postfix")
+step=document.getElementById("step")
 //*****functions******* */
 function add_to_screan(a)
 { if(is_prefix)
     {
       L1.push(a)
-      screen_input_prefix.textContent =L1.join(" ")  
+      screen_input_prefix.textContent =L1.join(" ")
+      step.textContent=" entering success ....." 
     } 
   else if(is_postfix)
   {
     L2.push(a)
     screen_input_postfix.textContent=L2.join(" ")
+    step.textContent="entering success ....." 
   }
   else
   {
-    alert("press on post or pre")
+    alert("press on post or pre or on any input screens ")
 
   }
 
@@ -57,6 +60,8 @@ function rest_click()
     screen_output.textContent="output:"
     post.style.backgroundColor="black"
     pre.style.backgroundColor="black"
+    step.textContent="press on post or pre or input screens"
+
     is_postfix=false
     is_prefix=false
     L1=[]
@@ -69,20 +74,27 @@ function dele()
       if(L1.length==0)
       {
         screen_input_prefix.textContent="enter:"
+        step.textContent="enter number or operation"
       }
       else
       {
         screen_input_prefix.textContent= L1.join(" ")
+        step.textContent="delete the last elment is success "
       }
     }
   else if(is_postfix)
     {
         L2.pop()
         if(L2.length==0)
-            {
-                screen_input_postfix.textContent="enter:"
-            }
-        screen_input_postfix.textContent=L2.join(" ")
+        {
+            step.textContent="enter number or operation"
+            screen_input_postfix.textContent="enter:"
+         }
+        else
+        {
+            screen_input_postfix.textContent=L2.join(" ")
+            step.textContent="delete the last elment is success "
+        }
     }
 
 }
@@ -103,6 +115,7 @@ function prefix_click()
     screen_input_prefix.textContent="enter:"
     screen_input_postfix.textContent="postfix_input:"
     screen_output.textContent="output:"
+    step.textContent="please enter  number or operation"
     L2=[]
     }
 }
@@ -123,6 +136,7 @@ function postfix_click()
     screen_input_postfix.textContent="enter:"
     screen_input_prefix.textContent="prefix_input:"
     screen_output.textContent="output:"
+     step.textContent="please enter  number or operation"
     L1=[]
     }
 }
@@ -130,8 +144,9 @@ function prefix(l)
 {
     if(!isNaN(l[0]))
     {
+        step.textContent="fix the error" 
         alert("definitly a mistake")    
-       return ""
+         return ""
     }
 
     s=[]
@@ -141,6 +156,7 @@ function prefix(l)
         {
             if (s.length<2)
             {
+                step.textContent="fix the error" 
                 alert("insufficient numbers after operator of index "+i)
                 return""
             }
@@ -157,6 +173,7 @@ function prefix(l)
            {
             if (v2==0)
             {
+               step.textContent="fix the error"
                alert("division by zero for opperation at index"+i)
                return ""
             }
@@ -170,6 +187,7 @@ function prefix(l)
     
     if (s.length !== 1) 
     {
+       step.textContent="fix the error"
        alert("not balance ")
        return ""
     }
@@ -179,6 +197,7 @@ function postfix(l)
 {
     if(l.length==1)
     {
+        step.textContent="fix the error"
         alert("incomplete")    
         return ""
     }
@@ -188,6 +207,7 @@ function postfix(l)
     if(l[i]=="+"|| l[i]=="-"|| l[i]=="*"||l[i]=="/")
     {   if (s.length<2)
         {
+            step.textContent="fix the error"
             alert("insufficient numbers before operatin of index"+i )  
             return  ""
         }
@@ -204,6 +224,7 @@ function postfix(l)
         {
             if(v2==0)
             {
+                step.textContent="fix the error"
                 alert("divide by zero by operation of index "+i+"you can add and del")
                 return ""
             }
@@ -218,6 +239,7 @@ function postfix(l)
    }
     if (s.length !== 1) 
     {
+        step.textContent="fix the error"
         alert(" not balance you can add and del ")
         return ""
     }
@@ -231,8 +253,11 @@ function equal_click()
             alert("please enter numbers")
         else
         {
+            step.textContent="calculate....."
             t=prefix(L1)
             appear_answer(t)
+           
+            
         }
         
     }
@@ -242,13 +267,17 @@ function equal_click()
             alert("please enter numbers")
         else
         {
+            step.textContent="calculate....."
             t=postfix(L2)
             appear_answer(t)
+            
+
+            
         }
        
     }
     else
-        alert(" press on pre and post")
+        alert(" press on pre and post or on input screens")
 }
 //******events ******** */
 for (const key in pcelements) 
