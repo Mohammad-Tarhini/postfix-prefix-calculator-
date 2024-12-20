@@ -253,7 +253,7 @@ function equal_click()
             alert("please enter numbers")
         else
         {
-            step.textContent="calculate....."
+            step.textContent="calculated....."
             t=prefix(L1)
             appear_answer(t)
            
@@ -267,7 +267,7 @@ function equal_click()
             alert("please enter numbers")
         else
         {
-            step.textContent="calculate....."
+            step.textContent="calculated....."
             t=postfix(L2)
             appear_answer(t)
             
