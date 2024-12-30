@@ -4,15 +4,10 @@ let is_postfix=false
 let is_prefix=false
 //***arrays */
 let L1=[]
-let L2=[]
-//******dictionarys*******/
-const cont={plus:'+',minus:"-",times:"*",divide:"/",zero:"0",one:"1",two:"2",three:"3",four:"4",five:"5",six:"6",seven:"7",eight:"8",nine:"9"}
-const pcelements={}
-//****elements********** */
-for (const key in cont) 
-{
-    pcelements[key] = document.getElementById(cont[key]);
-}
+const operators=["+","-","*","/"]
+//************************* */
+const pcelements=document.querySelectorAll(".press")
+//*********************************** */
 const dark=document.getElementById("dark")
 const light=document.getElementById("light")
 const normal=document.getElementById("normal")
@@ -25,29 +20,54 @@ const del=document.getElementById("del")
 const rest=document.getElementById("rest")
 const pre=document.getElementById("prefix")
 const post=document.getElementById("postfix")
-step=document.getElementById("step")
+const step=document.getElementById("step")
+const space=document.getElementById("space")
 //*****functions******* */
-function add_to_screan(a)
-{ if(is_prefix)
-    {
-      L1.push(a)
-      screen_input_prefix.textContent =L1.join(" ")
-      screen_output.textContent=""
-      step.textContent=" entering success ....." 
-    } 
-  else if(is_postfix)
-  {
-    L2.push(a)
-    screen_input_postfix.textContent=L2.join(" ")
-    step.textContent="entering success ....." 
-    screen_output.textContent=""
-  }
-  else
-  {
-    alert("press on post or pre or on any input screens ")
+function add_digit(d){
+    if(is_postfix || is_prefix){
+        if(L1.length==0){
+            L1[0]=d
+        }
+        else{
+        if(operators.includes(d) &( L1[L1.length-1].length !=0  )){
+            L1.push(d)
+        }
+        else if(operators.includes(d) & L1[L1.length-1].length ==0){
+            L1[L1.length-1]+=d
+        }
+        else if(!operators.includes(d)){     
+              L1[L1.length-1]+=d
+            
+        }
+        }
+        if(is_postfix){
+            screen_input_postfix.textContent =L1.join(" ")
+        }
+        else if(is_prefix){
+            screen_input_prefix.textContent=L1.join(" ")
+        }
+            
+             screen_output.textContent=""
+             step.textContent=" entering success ....." 
+        
+    }   
+   
+    else{
+        alert("please click on post  or pre")
+    }
 
-  }
-
+}
+function funspace(){
+    
+     if(is_prefix || is_postfix){
+        if(L1.length !=0 & L1[L1.length-1] !=""){
+            L1.push("")
+        }
+        
+    }
+    else{
+        alert("please click pre or post")
+    }
 }
 function appear_answer(value)
 {
@@ -67,42 +87,35 @@ function rest_click()
     is_postfix=false
     is_prefix=false
     L1=[]
-    L2=[]
+   
 }
-function dele()
-{ if(is_prefix)
-    {
-      L1.pop()
-      screen_output.textContent=""
-      if(L1.length==0)
-      {
-        screen_input_prefix.textContent="enter:"
-        step.textContent="enter number or operation"
-        
-      }
-      else
-      {
-        screen_input_prefix.textContent= L1.join(" ")
-        step.textContent="delete the last elment is success "
-      }
-    }
-  else if(is_postfix)
-    {
-        L2.pop()
-        screen_output.textContent=""
 
-        if(L2.length==0)
-        {
-            step.textContent="enter number or operation"
-            screen_input_postfix.textContent="enter:"
-         }
-        else
-        {
-            screen_input_postfix.textContent=L2.join(" ")
-            step.textContent="delete the last elment is success "
-        }
-    }
+function dele(){
+    
+    
+    if(L1.length==0){
 
+    }
+    else{
+    
+     if(L1[L1.length-1].length<=1){
+        L1.pop()
+    }
+    else{
+        L1[L1.length-1]=L1[L1.length-1].slice(0,-1)
+    }
+    if(is_prefix){
+        screen_input_prefix.textContent=L1.join("   ")
+    }
+    else if(is_postfix){
+        screen_input_postfix.textContent=L1.join("   ")
+    }
+    screen_output.textContent=""
+    step.textContent="delete last character"
+}
+}
+function display_steps(){
+    
 }
 function prefix_click()
 {
@@ -122,7 +135,7 @@ function prefix_click()
     screen_input_postfix.textContent="postfix_input:"
     screen_output.textContent="output:"
     step.textContent="please enter  number or operator"
-    L2=[]
+    L1=[]
     }
 }
 function postfix_click()
@@ -163,8 +176,8 @@ function prefix(l)
             if (s.length<2)
             {
                 step.textContent="fix the error" 
-                alert("insufficient numbers after operator of index "+i)
-                return""
+                
+                return"insufficient numbers after operator of index"+i
             }
            let v1=parseInt(s.pop());
            let v2=parseInt(s.pop());
@@ -180,22 +193,28 @@ function prefix(l)
             if (v2==0)
             {
                step.textContent="fix the error"
-               alert("divisor is zero on operator at index"+i)
-               return ""
+               return "divisor is zero on operator at index"+i
             }
             result=v1/v2
            }
            s.push(result)
         }
-        else
-            s.push(l[i])
+        else{
+            if(l[i] !=""){
+                s.push(l[i])
+
+            }
+            
+
+        }
+        
+            
     }
     
     if (s.length !== 1) 
     {
        step.textContent="fix the error"
-       alert("not balance ")
-       return ""
+       return "not balance"
     }
     return s.pop()
 }
@@ -203,9 +222,8 @@ function postfix(l)
 {
     if(l.length==1)
     {
-        step.textContent="fix the error"
-        alert("incomplete")    
-        return ""
+        step.textContent="fix the error"   
+        return "incomplete"
     }
   s=[]
   for(let i=0;i<l.length;i++)
@@ -214,8 +232,7 @@ function postfix(l)
     {   if (s.length<2)
         {
             step.textContent="fix the error"
-            alert("insufficient numbers before operator at index"+i )  
-            return  ""
+            return  "error:insufficient numbers before operator at index"+i
         }
         let v2=parseInt(s.pop())
         let v1=parseInt(s.pop())
@@ -231,68 +248,58 @@ function postfix(l)
             if(v2==0)
             {
                 step.textContent="fix the error"
-                alert("divisor is zero on operator of index "+i)
-                return ""
+                return "error:divisor is zero on operator of index "+i
             }
             result=v1/v2
         }
            
         s.push(result)
     }
-    else
-        s.push(l[i])
+    else{
+        if(l[i] !=""){
+            s.push(l[i])
+
+        }
+        
+
+    }
         
    }
     if (s.length !== 1) 
     {
         step.textContent="fix the error"
-        alert(" not balance  ")
-        return ""
+        return "error: not balance "
     }
     return s.pop() 
 }   
+    
+
 function equal_click()
 {
-    if( is_prefix)
+    if( is_prefix || is_postfix)
     {
-        if(L1.length===0)
+        if(L1.length==0)
             alert("please enter numbers or operator")
         else
         {
             step.textContent="calculated....."
-            t=prefix(L1)
+            let t=(is_postfix)?postfix(L1):prefix(L1)
             appear_answer(t)
            
             
         }
         
     }
-    else if(is_postfix)
-    {
-        if(L2.length==0)
-            alert("please enter numbers or operator")
-        else
-        {
-            step.textContent="calculated....."
-            t=postfix(L2)
-            appear_answer(t)
-            
-
-            
-        }
-       
-    }
+   
     else
         alert(" press on pre and post or on input screens")
 }
 //******events ******** */
-for (const key in pcelements) 
-{
-    pcelements[key].addEventListener("click",
-        function () {
-        add_to_screan(cont[key]); 
-    });
-}
+
+pcelements.forEach((element)=>element.addEventListener("click", function () {
+    add_digit(element.id); 
+}))
+space.addEventListener("click",funspace)
 del.addEventListener("click",dele)
 post.addEventListener("click",postfix_click)
 pre.addEventListener("click",prefix_click)
