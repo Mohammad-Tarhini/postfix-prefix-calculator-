@@ -5,6 +5,8 @@ Overview
 This is a web-based Prefix and Postfix Calculator that allows users to input mathematical expressions in either prefix or postfix notation and computes the result. 
 <br>The calculator provides interactive input, step-by-step validation, and a user-friendly interface with light/dark mode support.
 <br>
+<br>
+<br>
 Features
 <ul>
 <li>Supports Prefix & Postfix Notations: Users can toggle between prefix and postfix modes.</li>
